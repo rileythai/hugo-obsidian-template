@@ -8,9 +8,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="all,follow">
     <meta name="googlebot" content="index,follow,snippet,archive">
-    <link rel="stylesheet" href="{{ "hugo-theme-console/css/terminal-0.7.4.min.css" | absURL }}">
-    <link rel="stylesheet" href="{{ "hugo-theme-console/css/animate-4.1.1.min.css" | absURL }}">
-    <link rel="stylesheet" href="{{ "hugo-theme-console/css/console.css" | absURL }}">
+    <!--NOTE: you may run into issues with absURL/relURL. I host behind an apex domain via GH pages, so this may not work and you may need to change all relURL back to absURL-->
+    <link rel="stylesheet" href="{{ "hugo-theme-console/css/terminal-0.7.4.min.css" | relURL }}">
+    <link rel="stylesheet" href="{{ "hugo-theme-console/css/animate-4.1.1.min.css" | relURL }}">
+    <link rel="stylesheet" href="{{ "hugo-theme-console/css/console.css" | relURL }}">
     {{ `
       <!--[if lt IE 9]>
           <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -36,11 +37,11 @@
               {{ $url := replace .Permalink ( printf "%s" .Site.BaseURL) "" }}
               {{ $.Scratch.Add "path" .Site.BaseURL }}
               <a href="{{ .Site.BaseURL }}" class="no-style {{ with .Site.Params.TitleCutting }}site-name{{ end }}">{{ .Site.Title }}</a>:~# 
-              {{ range $index, $element := split $url "/" }}{{ $.Scratch.Add "path" $element }}{{ if ne $element "" }}<a href='{{ $.Scratch.Get "path" | absURL }}'>{{ . }}</a>/{{ $.Scratch.Add "path" "/" }}{{ end }}{{ end }}</div></header>
+              {{ range $index, $element := split $url "/" }}{{ $.Scratch.Add "path" $element }}{{ if ne $element "" }}<a href='{{ $.Scratch.Get "path" | relURL }}'>{{ . }}</a>/{{ $.Scratch.Add "path" "/" }}{{ end }}{{ end }}</div></header>
           <nav class="terminal-menu">
             <ul vocab="https://schema.org/" typeof="BreadcrumbList">
                 {{ range .Site.Params.navlinks }}
-                <li><a href="{{ absURL .url }}" typeof="ListItem">{{ .name }}</a></li>
+                <li><a href="{{ relURL .url }}" typeof="ListItem">{{ .name }}</a></li>
                 {{ end }}
             </ul>
           </nav>
